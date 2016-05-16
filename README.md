@@ -2,9 +2,7 @@
 
 TODO:
   - platformit spawnaa suunnitelmallisesti eri tasoissa
-  - namut/poimittavat
   - Ehkä bugi: Joskus törmätessä ehkä kuolee kaks kertaa? Ei aina... joskus. Tai sitte en jotenki pysy elämissä kärryillä välillä.
-  - Hitboxit. Corgin korvien hitboxia ehkä alemmas ja pitää nostaa perhosia ylemmäs koska kovassa vauhdissa niiden yli hyppää
   - Variable height jump?
   
 LOPULLISEEN PALAUTUKSEEN (18.5.) TODO:
