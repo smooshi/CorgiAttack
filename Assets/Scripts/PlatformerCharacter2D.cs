@@ -29,6 +29,7 @@ namespace UnityStandardAssets._2D
         private bool m_Doublejump;          // Käsky tuplahypätä
 		private bool m_Dashing;
 		private float prevP;
+		private bool m_DashReset;
 
         //Score
         public float playerScore;
@@ -80,6 +81,7 @@ namespace UnityStandardAssets._2D
                 if (colliders[i].gameObject != gameObject)
                     m_Grounded = true;
 					m_Doublejump = false;
+					m_DashReset = false;
 					m_Anim.SetBool("Falling", false);
             }
 
@@ -191,6 +193,12 @@ namespace UnityStandardAssets._2D
 				m_Dashing = true;
 				StartCoroutine (WaitDash ());
 				audioS.PlayOneShot (dashSound);
+
+				//Robot Unicorn Attackissa Dashaaminen resettaa doublejumpin! Se on tässä:
+				if (!m_DashReset) {
+					m_Doublejump = false;
+					m_DashReset = true;
+				}
 			}
         }
 			

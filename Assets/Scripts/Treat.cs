@@ -15,7 +15,7 @@ public class Treat : MonoBehaviour {
 		audioS = GetComponent<AudioSource>();
 		canvas = GameObject.Find ("Canvas").GetComponent<Canvas>();
 		menu = canvas.GetComponent<Menu> ();
-		//transform.FindChild ("TreatCanvas").gameObject.SetActive (!menu.GetLessDoge ());
+		transform.FindChild ("TreatCanvas").gameObject.SetActive (!menu.GetLessDoge ());
 		boxy = GetComponent<BoxCollider2D> ();
 		multiplier = 2;
 	}
@@ -29,9 +29,13 @@ public class Treat : MonoBehaviour {
 				boxy.enabled = false;
 				anim.SetBool ("touched", true);
 				audioS.Play ();
-				Destroy (this.gameObject);
+				GetComponent<SpriteRenderer>().enabled = false;
 
 			}
 		}
+	}
+	IEnumerator WaitForSound() {
+		yield return new WaitForSeconds (0.2f); //pituus
+		Destroy(this.gameObject);
 	}
 }
