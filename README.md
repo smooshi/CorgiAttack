@@ -1,17 +1,11 @@
 # Corgipeli!
 
-TODO:
-  - platformit spawnaa suunnitelmallisesti eri tasoissa
-  - Ehkä bugi: Joskus törmätessä ehkä kuolee kaks kertaa? Ei aina... joskus. Tai sitte en jotenki pysy elämissä kärryillä välillä.
-  - Variable height jump?
-  
 LOPULLISEEN PALAUTUKSEEN (18.5.) TODO:
   - TESTAUS: palautusspekseissä lukee että peliä pitäis olevinaan jotenkin myös testata
   - GAME DESIGN DOCUMENT: mukaanlukien UML-kaaviot
 
 Tekemättömät ehdotukset Revieweistä:
   - Hitaampi vauhdin keräys
-  - Paremmat hitboxit, erikoisesti platform edget
 
 TÄRKEÄÄ: Jos haluaa BUILD/RUN niin pitää ottaa XML-tiedostot "XML FOR BUILD" kansiosta ja pistää cg_Data kansion juureen! Muuten ei toimi! (ne tiedostot siellä on ns "tyhjiä" eli ei esim. mitään pelaajatietoja.
 
