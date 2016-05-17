@@ -3,11 +3,19 @@
   <TopTen>
     <Ranking>
       <name>Mila</name>
+      <score>9682</score>
+    </Ranking>
+    <Ranking>
+      <name>Mila</name>
       <score>8849</score>
     </Ranking>
     <Ranking>
       <name>Mila</name>
       <score>8618</score>
+    </Ranking>
+    <Ranking>
+      <name>Mila</name>
+      <score>8616</score>
     </Ranking>
     <Ranking>
       <name>Mila</name>
@@ -32,14 +40,6 @@
     <Ranking>
       <name>Mila</name>
       <score>6663</score>
-    </Ranking>
-    <Ranking>
-      <name>Mila</name>
-      <score>6163</score>
-    </Ranking>
-    <Ranking>
-      <name>Mila</name>
-      <score>6122</score>
     </Ranking>
   </TopTen>
 </StatCollection>

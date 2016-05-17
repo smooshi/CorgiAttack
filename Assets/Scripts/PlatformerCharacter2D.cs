@@ -32,12 +32,13 @@ namespace UnityStandardAssets._2D
 		private bool m_DashReset;
 
         //Score
-        public float playerScore;
+		[SerializeField] private float playerScore;
 		private UIHandler uiHandler;
 		private Canvas canvas;
 		private Menu menu;
-		public float multiplier;
+		private float multiplier;
 		public GameObject sparkles;
+		private bool extraTreat;
 
 		//Audio
 		//Pit‰is lˆyt‰‰ parempia ‰‰ni‰
@@ -46,6 +47,10 @@ namespace UnityStandardAssets._2D
 		public AudioClip collisionSound;
 		public AudioClip dashSound;
 
+		//better colliders
+		[SerializeField] private PolygonCollider2D[] PolygonColliders;
+		// 0: run, 1: fall, 2:dash, 3:jump
+		private int currentCollider;
 
 
         private void Awake()
@@ -63,6 +68,9 @@ namespace UnityStandardAssets._2D
 			prevP = -1f;
 			audioS = GetComponent<AudioSource> ();
 			multiplier = 1f;
+			currentCollider = 0;
+			SetCollider (0);
+			extraTreat = false;
         }
 
 
@@ -83,6 +91,7 @@ namespace UnityStandardAssets._2D
 					m_Doublejump = false;
 					m_DashReset = false;
 					m_Anim.SetBool("Falling", false);
+					SetCollider (0);
             }
 
             //Oon nyt asettanut animaattoriin booleanin "Ground" joka on oltava TRUE, jotta corgi voi pompata
@@ -94,6 +103,7 @@ namespace UnityStandardAssets._2D
 				m_Anim.SetBool("Jump", false);
 				m_Anim.SetBool ("Doublejump", false);
                 m_Anim.SetBool("Falling", true);
+				SetCollider (1);
             }
 
 			//corgi on jumissa ja pelin pit‰‰ p‰‰tty‰, nopeutta ei voi kattoa koska se pakotetaan corgille ni katon updatesyklien v‰liss‰ et paikka muuttuu
@@ -119,6 +129,9 @@ namespace UnityStandardAssets._2D
 		}
 
 		public void SetMultiplier(float value) {
+			if (multiplier == value) {
+				extraTreat = true;
+			}
 			multiplier = value;
 			uiHandler.SetMultiplier ((int)value);
 			StartCoroutine (WaitMultiplier ());
@@ -144,6 +157,7 @@ namespace UnityStandardAssets._2D
 				if (!m_Doublejump && !m_Grounded) {
 					m_Doublejump = true;
 					m_Anim.SetBool ("Doublejump", true);
+					SetCollider (3);
 
 					if (m_Anim.GetBool ("Falling")) {
 						//kumoaa gravitaation:
@@ -180,6 +194,7 @@ namespace UnityStandardAssets._2D
 	                m_Grounded = false;
 	                m_Anim.SetBool("Ground", false);
 					m_Anim.SetBool("Jump", true); //on mahdollista et t‰t‰ ei tartte mut animaatiot vastustaa mua
+					SetCollider(3);
 					m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce), ForceMode2D.Impulse);
 					//m_Rigidbody2D.velocity = new Vector2(0f, m_JumpForce);
 					//m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
@@ -189,6 +204,7 @@ namespace UnityStandardAssets._2D
 			//Dash
 			if (dash && !m_Anim.GetBool ("Dash")) {
 				m_Anim.SetBool ("Dash", true);
+				SetCollider (2);
 				m_Rigidbody2D.AddForce (new Vector2 (m_DashForce, 0f), ForceMode2D.Impulse);
 				m_Dashing = true;
 				StartCoroutine (WaitDash ());
@@ -201,6 +217,12 @@ namespace UnityStandardAssets._2D
 				}
 			}
         }
+
+		public void SetCollider(int nextCollider) {
+			PolygonColliders [currentCollider].enabled = false;
+			currentCollider = nextCollider;
+			PolygonColliders [currentCollider].enabled = true;
+		}
 			
 		public void CorgiCollision() {
 			audioS.PlayOneShot (collisionSound, 20f); //t‰‰ on tosi hiljanen
@@ -222,9 +244,13 @@ namespace UnityStandardAssets._2D
 
 		IEnumerator WaitMultiplier() {
 			yield return new WaitForSeconds (8f); //pituus
-			uiHandler.EmptyMultiplier();
-			multiplier = 1;
-			sparkles.SetActive (false);
+			if (extraTreat) {
+				StartCoroutine (WaitMultiplier ());
+			} else {
+				uiHandler.EmptyMultiplier ();
+				multiplier = 1;
+				sparkles.SetActive (false);
+			}
 		}
 
     }

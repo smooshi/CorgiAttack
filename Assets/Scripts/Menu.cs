@@ -51,6 +51,7 @@ public class Menu : MonoBehaviour {
 		firebase = GetComponent<FirebaseAPI> ();
 		scoreboard = GetComponent<Scoreboard> ();
 		audioS = GetComponent<AudioSource> ();
+		firebase.PreloadScores ();
 	}
 
 	void Start() {
@@ -68,7 +69,6 @@ public class Menu : MonoBehaviour {
 		} else {
 			if (!lHandler.GetRoundInProgress ()) {
 				ActivateStartScreen ();
-				firebase.PreloadScores ();
 			} else {
 				Time.timeScale = 1;
 			}
@@ -203,7 +203,7 @@ public class Menu : MonoBehaviour {
 		scoreboardScreen.SetActive (true);
 		scoreMenuScreen.SetActive (true);
 		SetCurrentScreen (scoreboardScreen);
-		//firebase.PreloadScores (); //lataa serveriltä global scoret
+		firebase.GetScores (); //lataa serveriltä global scoret
 	}
 
 	public void LocalPressed() {

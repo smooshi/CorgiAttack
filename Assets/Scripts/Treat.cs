@@ -30,7 +30,7 @@ public class Treat : MonoBehaviour {
 				anim.SetBool ("touched", true);
 				audioS.Play ();
 				GetComponent<SpriteRenderer>().enabled = false;
-
+				transform.FindChild ("TreatCanvas").gameObject.SetActive (false);
 			}
 		}
 	}
