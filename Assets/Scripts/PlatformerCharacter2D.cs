@@ -253,5 +253,9 @@ namespace UnityStandardAssets._2D
 			}
 		}
 
+		public void PlayTestSound() {
+			audioS.PlayOneShot (jumpSound);
+		}
+
     }
 }

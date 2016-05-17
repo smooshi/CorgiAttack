@@ -4,6 +4,7 @@ using System.Collections;
 public class Tiling : MonoBehaviour {
 
     public Transform[] spawnables;
+	public Transform[] upperLevel;
     public float movedX;
 	public float fixY;
 	public float offCamera;
@@ -21,11 +22,20 @@ public class Tiling : MonoBehaviour {
 	void Update () {
         if (transform.position.x / movedX > 15)
         {
-            Debug.Log("Spawn shit now");
-			Instantiate(spawnables[Random.Range(0, 11)], new Vector3(transform.position.x+offCamera, transform.position.y-fixY, 0-5), Quaternion.identity);
-            movedX++;
-			//offCamera++;
+			int r = Random.Range (0, 3);
+
+			if (r == 0) {
+				Debug.Log("Spawn up");
+				Instantiate(upperLevel[Random.Range(0, 5)], new Vector3(transform.position.x+offCamera, transform.position.y-(fixY+2), 0-5), Quaternion.identity);
+
+			} else {
+				Debug.Log("Spawn down");
+				Instantiate(spawnables[Random.Range(0, 12)], new Vector3(transform.position.x+offCamera, transform.position.y-fixY, 0-5), Quaternion.identity);
+
+			}
+			movedX++;
 			offCamera += 3;
+
         }
 
 	

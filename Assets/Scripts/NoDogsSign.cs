@@ -24,13 +24,12 @@ public class NoDogsSign : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.layer == 10) { //player
-
+			boxy.enabled = false;
 			//corgi dashaa eli sign hajoaa
 			if (other.GetComponent<PlatformerCharacter2D> ().IsDashing ()) {
 				anim.SetBool ("corgiBreaksSign", true);
 				other.gameObject.GetComponent<PlatformerCharacter2D> ().AddPoints (points);
 				Debug.Log ("Corgi dashed through sign and got points!");
-				boxy.enabled = false;
 				StartCoroutine(Destroy());
 			} else { //corgi kuolee
 				other.GetComponent<PlatformerCharacter2D> ().CorgiCollision ();

@@ -24,7 +24,6 @@ public class Treat : MonoBehaviour {
 		if (other.gameObject.layer == 10) { //player
 			Debug.Log ("Corgi touched butterfly");
 			if (!anim.GetBool ("touched")) {
-				
 				other.gameObject.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D> ().SetMultiplier (multiplier);
 				boxy.enabled = false;
 				anim.SetBool ("touched", true);
