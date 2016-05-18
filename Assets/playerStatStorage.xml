@@ -2,13 +2,13 @@
 <StatCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <PlayerStats>
     <Player name="Mila">
-      <totalPoints>1072095</totalPoints>
-      <totalRounds>1184</totalRounds>
-      <highScore>9682</highScore>
+      <totalPoints>1126810</totalPoints>
+      <totalRounds>1196</totalRounds>
+      <highScore>11836</highScore>
       <lessDoge>false</lessDoge>
       <moreDoge>false</moreDoge>
       <musicVol>-10.3481007</musicVol>
-      <sfxVol>-28.014143</sfxVol>
+      <sfxVol>-31.3073635</sfxVol>
     </Player>
   </PlayerStats>
 </StatCollection>

@@ -70,7 +70,7 @@ public class Scoreboard : MonoBehaviour
 		int i = 0;
 		foreach (Ranking r in TopTen) {
 			Transform ScorePanel = localScoreBoard.transform.Find("ScorePanel (" + i+")");
-			ScorePanel.transform.Find("Rank").GetComponent<Text>().text = i + "";
+			ScorePanel.transform.Find("Rank").GetComponent<Text>().text = i+1 + "";
 			ScorePanel.transform.Find("Score").GetComponent<Text>().text = r.score + "";
 			ScorePanel.transform.Find("Name").GetComponent<Text>().text = r.name;
 			i++;

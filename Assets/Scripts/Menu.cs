@@ -64,6 +64,9 @@ public class Menu : MonoBehaviour {
 		SetSFXVolume (player.sfxVol);
 		SetMusicVolume (player.musicVol);
 
+		//päivitä elämät
+		ChangeLives ();
+
 		if (player.playerName == null) {
 			EnterName ();
 		} else {
@@ -73,9 +76,6 @@ public class Menu : MonoBehaviour {
 				Time.timeScale = 1;
 			}
 		}
-
-		//päivitä elämät
-		ChangeLives ();
 	}
 
 	public void PauseGame() {
@@ -108,6 +108,11 @@ public class Menu : MonoBehaviour {
 		SubmitName (text);
 		currentScreen.SetActive (false);
 		ActivateStartScreen ();
+	}
+
+	public void ResetGame() {
+		lHandler.StartRound ();
+		ReloadGame ();
 	}
 
 	public void ReloadGame() {
