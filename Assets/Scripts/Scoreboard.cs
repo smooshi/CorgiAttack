@@ -67,7 +67,7 @@ public class Scoreboard : MonoBehaviour
 
 	public void ShowLocal() {
 		TopTen = _xml.GetTopTen ();
-		int i = 1;
+		int i = 0;
 		foreach (Ranking r in TopTen) {
 			Transform ScorePanel = localScoreBoard.transform.Find("ScorePanel (" + i+")");
 			ScorePanel.transform.Find("Rank").GetComponent<Text>().text = i + "";
