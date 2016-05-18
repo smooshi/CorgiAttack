@@ -25,11 +25,11 @@ public class Tiling : MonoBehaviour {
 			int r = Random.Range (0, 3);
 
 			if (r == 0) {
-				Debug.Log("Spawn up");
-				Instantiate(upperLevel[Random.Range(0, 5)], new Vector3(transform.position.x+offCamera, transform.position.y-(fixY+2), 0-5), Quaternion.identity);
+				//Debug.Log("Spawn up");
+				Instantiate(upperLevel[Random.Range(0, 8)], new Vector3(transform.position.x+offCamera, transform.position.y-(fixY+2), 0-5), Quaternion.identity);
 
 			} else {
-				Debug.Log("Spawn down");
+				//Debug.Log("Spawn down");
 				Instantiate(spawnables[Random.Range(0, 12)], new Vector3(transform.position.x+offCamera, transform.position.y-fixY, 0-5), Quaternion.identity);
 
 			}

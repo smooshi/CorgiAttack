@@ -22,15 +22,12 @@ public class Treat : MonoBehaviour {
 	
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.layer == 10) { //player
-			Debug.Log ("Corgi touched butterfly");
-			if (!anim.GetBool ("touched")) {
-				other.gameObject.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D> ().SetMultiplier (multiplier);
-				boxy.enabled = false;
-				anim.SetBool ("touched", true);
-				audioS.Play ();
-				GetComponent<SpriteRenderer>().enabled = false;
-				transform.FindChild ("TreatCanvas").gameObject.SetActive (false);
-			}
+			Debug.Log ("Corgi touched treat");
+			other.gameObject.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D> ().SetMultiplier (multiplier);
+			boxy.enabled = false;
+			audioS.Play ();
+			GetComponent<SpriteRenderer>().enabled = false;
+			transform.FindChild ("TreatCanvas").gameObject.SetActive (false);
 		}
 	}
 	IEnumerator WaitForSound() {

@@ -78,6 +78,7 @@
      <Compile Include="Assets\Scripts\XML\StatHandler.cs" />
      <Compile Include="Assets\Scripts\XML\TopTenHandler.cs" />
      <Compile Include="Assets\Scripts\erasure.cs" />
+     <Compile Include="Assets\hor.cs" />
      <None Include="Assets\playerStatStorage.xml" />
      <None Include="Assets\XMLS FOR BUILD\topTenStorage.xml" />
      <None Include="Assets\Scripts\XML\storeOriginalXMLJustInCase\topTenStorage 1.xml" />

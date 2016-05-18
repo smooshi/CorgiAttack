@@ -30,6 +30,7 @@ namespace UnityStandardAssets._2D
 		private bool m_Dashing;
 		private float prevP;
 		private bool m_DashReset;
+		private bool groundedDash;
 
         //Score
 		[SerializeField] private float playerScore;
@@ -71,6 +72,7 @@ namespace UnityStandardAssets._2D
 			currentCollider = 0;
 			SetCollider (0);
 			extraTreat = false;
+			groundedDash = false;
         }
 
 
@@ -92,6 +94,7 @@ namespace UnityStandardAssets._2D
 					m_DashReset = false;
 					m_Anim.SetBool("Falling", false);
 					SetCollider (0);
+					groundedDash = false;
             }
 
             //Oon nyt asettanut animaattoriin booleanin "Ground" joka on oltava TRUE, jotta corgi voi pompata
@@ -147,65 +150,57 @@ namespace UnityStandardAssets._2D
         {
             //Move
             m_Rigidbody2D.velocity = new Vector2(moveSpeed, m_Rigidbody2D.velocity.y);
-    
+    		
+			//Get movement state now
+			Vector2 corgi = new Vector2();
+			corgi = m_Rigidbody2D.velocity;
 
             // DJ
 			if (!m_Doublejump && jump && !m_Grounded) {
 				//sound
 				audioS.PlayOneShot (jumpSound);
 
-				if (!m_Doublejump && !m_Grounded) {
+				if (!m_Doublejump && !m_Grounded && !m_Dashing) {
 					m_Doublejump = true;
 					m_Anim.SetBool ("Doublejump", true);
 					SetCollider (3);
 
 					if (m_Anim.GetBool ("Falling")) {
 						//kumoaa gravitaation:
-						m_Rigidbody2D.velocity = new Vector2 (0f, m_JumpForce);
+						m_Rigidbody2D.velocity = new Vector2 (corgi.x, m_JumpForce);
 					} else {
 						//tönäisee:
-						m_Rigidbody2D.AddForce (new Vector2 (0f, m_DJumpForce), ForceMode2D.Impulse);
+						m_Rigidbody2D.AddForce (new Vector2 (corgi.x, m_DJumpForce), ForceMode2D.Impulse);
 					}
 
 					m_Anim.SetBool ("Falling", false);
 				}
 			}
 
-			if (m_Grounded && jump && m_Anim.GetBool("Ground")) {
-				//sound
+			if (m_Grounded && jump) {
+				
+	            m_Grounded = false;
+				m_Anim.SetBool ("Grounded", m_Grounded);
+				m_Anim.SetBool("Jump", true);
+				SetCollider(3);
 				audioS.PlayOneShot (jumpSound);
 
-				/* YÄK IHAN KAUHEE
-				float fullJump = 0.3f;
-				if (m_Grounded && !m_Anim.GetBool("Jump")) {
-					m_Grounded = false;
-					m_Anim.SetBool("Ground", false);
-					m_Anim.SetBool("Jump", true); //on mahdollista et tätä ei tartte mut animaatiot vastustaa mua
-					//m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce), ForceMode2D.Impulse);
-					float JumpForce = ((m_MaxJump - m_MiniJump) * (jumpTime / fullJump)) + m_MiniJump;
-					if (JumpForce > m_MaxJump) {
-						JumpForce = m_MaxJump;
-					}
-					m_Rigidbody2D.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
-					Debug.Log (jumpTime + "  " + JumpForce);
-				}*/
-
-
-	                m_Grounded = false;
-	                m_Anim.SetBool("Ground", false);
-					m_Anim.SetBool("Jump", true); //on mahdollista et tätä ei tartte mut animaatiot vastustaa mua
-					SetCollider(3);
-					m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce), ForceMode2D.Impulse);
-					//m_Rigidbody2D.velocity = new Vector2(0f, m_JumpForce);
-					//m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
-
+				if (m_Dashing) {
+					m_Anim.SetBool ("Dash", false);
+					m_Dashing = false;
+					m_Rigidbody2D.velocity = new Vector2 (corgi.x, m_JumpForce);
+				} else {
+					m_Rigidbody2D.AddForce (new Vector2 (0f, m_JumpForce), ForceMode2D.Impulse);
+				}
             }
 
 			//Dash
 			if (dash && !m_Anim.GetBool ("Dash")) {
 				m_Anim.SetBool ("Dash", true);
 				SetCollider (2);
+
 				m_Rigidbody2D.AddForce (new Vector2 (m_DashForce, 0f), ForceMode2D.Impulse);
+				
 				m_Dashing = true;
 				StartCoroutine (WaitDash ());
 				audioS.PlayOneShot (dashSound);
@@ -214,6 +209,10 @@ namespace UnityStandardAssets._2D
 				if (!m_DashReset) {
 					m_Doublejump = false;
 					m_DashReset = true;
+				}
+
+				if (m_Grounded) {
+					groundedDash = true;
 				}
 			}
         }
