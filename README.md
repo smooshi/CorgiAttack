@@ -1,8 +1,6 @@
 # Corgipeli!
 
 LOPULLISEEN PALAUTUKSEEN (18.5.) TODO:
-  - TESTAUS: palautusspekseissä lukee että peliä pitäis olevinaan jotenkin myös testata
-  - GAME DESIGN DOCUMENT: mukaanlukien UML-kaaviot
 
 Tekemättömät ehdotukset Revieweistä:
   - Hitaampi vauhdin keräys
